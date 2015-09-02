@@ -27,7 +27,7 @@ module PulMetadataServices
   end
 
   def bibdata_connection
-    @bibdata_connectoin ||= Faraday.new(url: 'http://bibdata.princeton.edu/bibliographic/')
+    @bibdata_connection ||= Faraday.new(url: 'http://bibdata.princeton.edu/bibliographic/')
   end
 
 end
