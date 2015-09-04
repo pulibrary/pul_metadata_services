@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'pul_metadata_services'
 
 describe PulMetadataServices::PulfaRecord do
-  let(:fixture_path) { File.expand_path('../../../fixtures', __FILE__) }
+  let(:fixture_path) { File.expand_path('../../fixtures', __FILE__) }
   let(:record1_path) { File.join(fixture_path, 'AC123_c00004.xml')}
   subject {
     f = File.open(record1_path)
@@ -11,10 +11,10 @@ describe PulMetadataServices::PulfaRecord do
     su
   }
 
-  describe '#component_title' do
+  describe '#title' do
     it 'Grabs the unittitle' do
       expected = '19th Century Catalog and Correspondence, Pre-Vinton, 1811-'
-      expect(subject.component_title).to eq expected
+      expect(subject.title).to eq expected
     end
   end
 
