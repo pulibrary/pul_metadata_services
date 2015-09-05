@@ -1,11 +1,20 @@
 require 'spec_helper'
 require 'pul_metadata_services'
 
-describe "MARC::Record Extentions" do
-  let(:fixture_path) { File.expand_path('../../../fixtures', __FILE__) }
-  let(:record1) { MARC::XMLReader.new(File.join(fixture_path, '1160682.mrx')).first }
-  let(:record2) { MARC::XMLReader.new(File.join(fixture_path, '7214786.mrx')).first }
-  let(:record3) { MARC::XMLReader.new(File.join(fixture_path, '345682.mrx')).first }
+describe PulMetadataServices::BibRecord do
+  let(:fixture_path) { File.expand_path('../../fixtures', __FILE__) }
+  let(:record1) {
+    pth = File.join(fixture_path, '1160682.mrx')
+    described_class.new(File.open(pth).read)
+  }
+  let(:record2) {
+    pth = File.join(fixture_path, '7214786.mrx')
+    described_class.new(File.open(pth).read)
+  }
+  let(:record3) {
+    pth = File.join(fixture_path, '345682.mrx')
+    described_class.new(File.open(pth).read)
+  }
 
   describe '#formatted_fields_as_array' do
     it 'gets what you ask for with one' do

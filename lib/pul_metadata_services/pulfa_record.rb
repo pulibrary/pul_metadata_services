@@ -3,23 +3,16 @@ require 'nokogiri'
 module PulMetadataServices
   class PulfaRecord
 
-    attr_accessor :record
-
-    def initialize(record)
-      # Just asssuming record is a String for now
-      # unless record.instance_of? Nokogiri::XML::Document
-      self.record = Nokogiri::XML(record)
-      #else
-      #  self.record = record
-      #end
-      self.record.remove_namespaces!
+    def initialize(source)
+      @source = source
     end
 
+    def source
+      @source
+    end
 
-    # # probably will need a sorting routine for
-    # # that provides precedence to the attributes
-    def component_title
-      self.record.at_xpath('/c/did/unittitle').text
+    def title
+      data.at_xpath('/c/did/unittitle').text
     end
 
     def component_creators
@@ -31,21 +24,31 @@ module PulMetadataServices
     end
 
     def breadcrumbs
-      crumbs = self.record.xpath('/c/context/breadcrumbs/crumb')
+      crumbs = data.xpath('/c/context/breadcrumbs/crumb')
       crumbs.map(&:text).join(' 》')
     end
 
     def collection_title
-      self.record.at_xpath('/c/context/collectionInfo/unittitle').content
+      data.at_xpath('/c/context/collectionInfo/unittitle').content
     end
 
     def collection_creators
-      cres = self.record.xpath('/c/context/collectionInfo/collection-creators/*')
+      cres = data.xpath('/c/context/collectionInfo/collection-creators/*')
       cres.map(&:content)
     end
 
     def collection_date
       # TODO
+    end
+
+    private
+
+    def data
+      @data ||= reader.remove_namespaces!
+    end
+
+    def reader
+      @reader ||= Nokogiri::XML(source)
     end
 
   end
