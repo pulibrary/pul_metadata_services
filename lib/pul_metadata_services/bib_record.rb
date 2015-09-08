@@ -265,9 +265,18 @@ module PulMetadataServices
     end
 
     def date_from_008
-      d = data['008'].value[7,4].gsub 'u', '0'
-      d if d =~ /^[0-9]{4}$/
+      if data['008']
+        d = data['008'].value[7,4]
+        d = d.gsub 'u', '0' unless d == 'uuuu'
+        d = d.gsub ' ', '0' unless d == '    '
+        d if d =~ /^[0-9]{4}$/
+      end
     end
+
+    # def date_from_008
+    #   d = data['008'].value[7,4].gsub 'u', '0'
+    #   d if d =~ /^[0-9]{4}$/
+    # end
 
     def determine_primary_title_field
       (TITLE_FIELDS_BY_PREF & data.tags)[0]
