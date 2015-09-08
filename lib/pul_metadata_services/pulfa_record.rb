@@ -11,8 +11,15 @@ module PulMetadataServices
       @source
     end
 
+    def attributes
+      {
+        title: title
+        # more TODO
+      }
+    end
+
     def title
-      data.at_xpath('/c/did/unittitle').text
+      [ data.at_xpath('/c/did/unittitle').text ]
     end
 
     def component_creators
