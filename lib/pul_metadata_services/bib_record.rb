@@ -9,6 +9,16 @@ module PulMetadataServices
       @source
     end
 
+    def attributes
+      {
+        title: title,
+        sort_title: sort_title,
+        creator: creator,
+        date_created: date,
+        publisher: publisher
+      }
+    end
+
     def abstract
       formatted_fields_as_array('520')
     end
@@ -130,7 +140,7 @@ module PulMetadataServices
     end
 
     def publisher
-      formatted_fields_as_array('260', codes: ['b'])
+      formatted_fields_as_array(['260','264'], codes: ['b'])
     end
 
     def rights
@@ -154,8 +164,8 @@ module PulMetadataServices
       if title_tag == '245'
         ti = format_datafield(ti_field).split(' / ')[0]
         if !include_initial_article
-          chop = data['245'].indicator2.to_i
-          ti = ti[chop, ti.length-chop]
+          to_chop = data['245'].indicator2.to_i
+          ti = ti[to_chop, ti.length-to_chop]
         end
 
         titles << ti
@@ -164,8 +174,8 @@ module PulMetadataServices
           linked_field = get_linked_field(ti_field)
           vern_ti = format_datafield(linked_field).split(' / ')[0]
           if !include_initial_article
-            chop = linked_field.indicator2.to_i
-            vern_ti = vern_ti[chop, ti.length-chop]
+            to_chop = linked_field.indicator2.to_i
+            vern_ti = vern_ti[to_chop, ti.length-to_chop]
           end
           titles << vern_ti
         end

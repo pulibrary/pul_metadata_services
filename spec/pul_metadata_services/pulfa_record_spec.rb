@@ -11,9 +11,18 @@ describe PulMetadataServices::PulfaRecord do
     su
   }
 
+  describe '#attributes' do
+    it 'works' do
+      expected = {
+        title: ['19th Century Catalog and Correspondence, Pre-Vinton, 1811-']
+      }
+      expect(subject.attributes).to eq expected
+    end
+  end
+
   describe '#title' do
     it 'Grabs the unittitle' do
-      expected = '19th Century Catalog and Correspondence, Pre-Vinton, 1811-'
+      expected = ['19th Century Catalog and Correspondence, Pre-Vinton, 1811-']
       expect(subject.title).to eq expected
     end
   end

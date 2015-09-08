@@ -42,6 +42,19 @@ describe PulMetadataServices::BibRecord do
     end
   end
 
+  describe '#attributes' do
+    it 'works' do
+      expected = {
+        title: ['The weeping angels'],
+        sort_title: 'weeping angels',
+        creator: ['Moffat, Steven.'],
+        date_created: '1899',
+        publisher: ['A. Martínez,']
+      }
+      expect(record1.attributes).to eq expected
+    end
+  end
+
   describe '#alternative_titles' do
     it 'gets the other titles' do
       expected = [
