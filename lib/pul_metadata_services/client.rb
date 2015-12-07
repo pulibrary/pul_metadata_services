@@ -26,7 +26,7 @@ module PulMetadataServices
     end
 
     def self.retrieve_from_bibdata(id)
-      conn = Faraday.new(url: 'http://bibdata.princeton.edu/bibliographic/')
+      conn = Faraday.new(url: 'https://bibdata.princeton.edu/bibliographic/')
       response = conn.get(id)
       response.body
     end
