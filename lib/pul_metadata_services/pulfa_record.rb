@@ -13,30 +13,57 @@ module PulMetadataServices
 
     def attributes
       {
-        title: title
-        # more TODO
+        title: title,
+        language: language,
+        date: display_date,
+        created: normalized_date,
+        extent: extent,
+        description: description,
+        heldBy: location_code,
+        creator: collection_creators,
+        publisher: collection_creators
       }
     end
 
     def title
-      [ data.at_xpath('/c/did/unittitle').text ]
+      [ [ breadcrumbs, data.at_xpath('/c/did/unittitle').text ].compact.join(' - ') ]
+    end
+
+    def language
+      [ data.at_xpath('/c/did/langmaterial/language/@langcode').text ]
+    end
+
+    def normalized_date
+      [ data.at_xpath('/c/did/unitdate/@normal').text ]
+    end
+
+    def display_date
+      [ data.at_xpath('/c/did/unitdate').text ]
+    end
+
+    def location_code
+      [ data.at_xpath('/c/did/physloc').text ]
+    end
+
+    def description
+      [ [container('box'), container('folder')].compact.join(', ') ]
+    end
+
+    def extent
+      [ text(data.at_xpath('/c/did/physdesc/extent')) ]
     end
 
     def component_creators
       # TODO
     end
 
-    def component_date
-      # TODO
-    end
-
     def breadcrumbs
       crumbs = data.xpath('/c/context/breadcrumbs/crumb')
-      crumbs.map(&:text).join(' 》')
+      crumbs.map(&:text).join(' - ')
     end
 
     def collection_title
-      data.at_xpath('/c/context/collectionInfo/unittitle').content
+      [ data.at_xpath('/c/context/collectionInfo/unittitle').content ]
     end
 
     def collection_creators
@@ -58,5 +85,13 @@ module PulMetadataServices
       @reader ||= Nokogiri::XML(source)
     end
 
+    def text(result)
+      result.text if result
+    end
+
+    def container(type)
+      val = text(data.at_xpath("/c/did/container[@type='#{type}']"))
+      "#{type.capitalize} #{val}" if val
+    end
   end
 end

@@ -14,7 +14,15 @@ describe PulMetadataServices::PulfaRecord do
   describe '#attributes' do
     it 'works' do
       expected = {
-        title: ['19th Century Catalog and Correspondence, Pre-Vinton, 1811-']
+        title: ['Series 1: University Librarian Records - Subseries 1A, Frederic Vinton - Correspondence - 19th Century Catalog and Correspondence, Pre-Vinton, 1811-'],
+        created: ['1865-01-01T00:00:00Z/1865-12-31T23:59:59Z'],
+        creator: ['Princeton University. Library. Dept. of Rare Books and Special Collections'],
+        publisher: ['Princeton University. Library. Dept. of Rare Books and Special Collections'],
+        date: ['circa 1865'],
+        description: ['Box 1, Folder 2'],
+        extent: ['1 folder'],
+        heldBy: ['mudd'],
+        language: ['eng']
       }
       expect(subject.attributes).to eq expected
     end
@@ -22,21 +30,21 @@ describe PulMetadataServices::PulfaRecord do
 
   describe '#title' do
     it 'Grabs the unittitle' do
-      expected = ['19th Century Catalog and Correspondence, Pre-Vinton, 1811-']
+      expected = ['Series 1: University Librarian Records - Subseries 1A, Frederic Vinton - Correspondence - 19th Century Catalog and Correspondence, Pre-Vinton, 1811-']
       expect(subject.title).to eq expected
     end
   end
 
   describe '#breadcrumbs' do
     it 'returns the path without the title' do
-      expected = 'Series 1: University Librarian Records 》Subseries 1A, Frederic Vinton 》Correspondence'
+      expected = 'Series 1: University Librarian Records - Subseries 1A, Frederic Vinton - Correspondence'
       expect(subject.breadcrumbs).to eq expected
     end
   end
 
   describe '#collection_title' do
     it 'returns the path without the title' do
-      expected = 'Princeton University Library Records'
+      expected = ['Princeton University Library Records']
       expect(subject.collection_title).to eq expected
     end
   end
@@ -48,4 +56,39 @@ describe PulMetadataServices::PulfaRecord do
     end
   end
 
+  describe '#language' do
+    it 'returns the language code' do
+      expect(subject.language).to eq ['eng']
+    end
+  end
+
+  describe '#normalized_date' do
+    it 'returns the iso 8601 date' do
+      expect(subject.normalized_date).to eq ['1865-01-01T00:00:00Z/1865-12-31T23:59:59Z']
+    end
+  end
+
+  describe '#display_date' do
+    it 'returns the human-readable date' do
+      expect(subject.display_date).to eq ['circa 1865']
+    end
+  end
+
+  describe '#extent' do
+    it 'returns the extent' do
+      expect(subject.extent).to eq ['1 folder']
+    end
+  end
+
+  describe '#description' do
+    it 'returns the box/folder' do
+      expect(subject.description).to eq ['Box 1, Folder 2']
+    end
+  end
+
+  describe '#location_code' do
+    it 'returns the location code' do
+      expect(subject.location_code).to eq ['mudd']
+    end
+  end
 end
