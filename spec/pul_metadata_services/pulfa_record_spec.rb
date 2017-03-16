@@ -91,4 +91,22 @@ describe PulMetadataServices::PulfaRecord do
       expect(subject.location_code).to eq ['mudd']
     end
   end
+
+  context "with missing data" do
+    let(:record2_path) { File.join(fixture_path, 'AC123_c99999.xml')}
+    subject {
+      f = File.open(record2_path)
+      su = PulMetadataServices::PulfaRecord.new(f.read)
+      f.close
+      su
+    }
+
+    it "doesn't fail" do
+      expect { subject.language }.not_to raise_error
+    end
+
+    it "returns nil for the missing fields" do
+      expect(subject.language).to be nil
+    end
+  end
 end

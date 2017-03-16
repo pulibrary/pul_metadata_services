@@ -30,19 +30,19 @@ module PulMetadataServices
     end
 
     def language
-      [ data.at_xpath('/c/did/langmaterial/language/@langcode').text ]
+      text(data.at_xpath('/c/did/langmaterial/language/@langcode'))
     end
 
     def normalized_date
-      [ data.at_xpath('/c/did/unitdate/@normal').text ]
+      text(data.at_xpath('/c/did/unitdate/@normal'))
     end
 
     def display_date
-      [ data.at_xpath('/c/did/unitdate').text ]
+      text(data.at_xpath('/c/did/unitdate'))
     end
 
     def location_code
-      [ data.at_xpath('/c/did/physloc').text ]
+      text(data.at_xpath('/c/did/physloc'))
     end
 
     def description
@@ -50,7 +50,7 @@ module PulMetadataServices
     end
 
     def extent
-      [ text(data.at_xpath('/c/did/physdesc/extent')) ]
+      text(data.at_xpath('/c/did/physdesc/extent'))
     end
 
     def component_creators
@@ -86,11 +86,11 @@ module PulMetadataServices
     end
 
     def text(result)
-      result.text if result
+      [ result.text ] if result
     end
 
     def container(type)
-      val = text(data.at_xpath("/c/did/container[@type='#{type}']"))
+      val = text(data.at_xpath("/c/did/container[@type='#{type}']")).first
       "#{type.capitalize} #{val}" if val
     end
   end
