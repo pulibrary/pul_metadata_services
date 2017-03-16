@@ -90,8 +90,8 @@ module PulMetadataServices
     end
 
     def container(type)
-      val = text(data.at_xpath("/c/did/container[@type='#{type}']")).first
-      "#{type.capitalize} #{val}" if val
+      val = text(data.at_xpath("/c/did/container[@type='#{type}']"))
+      "#{type.capitalize} #{val.first}" if val
     end
   end
 end

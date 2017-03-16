@@ -93,7 +93,7 @@ describe PulMetadataServices::PulfaRecord do
   end
 
   context "with missing data" do
-    let(:record2_path) { File.join(fixture_path, 'AC123_c99999.xml')}
+    let(:record2_path) { File.join(fixture_path, 'AC057_c18.xml')}
     subject {
       f = File.open(record2_path)
       su = PulMetadataServices::PulfaRecord.new(f.read)
@@ -103,10 +103,12 @@ describe PulMetadataServices::PulfaRecord do
 
     it "doesn't fail" do
       expect { subject.language }.not_to raise_error
+      expect { subject.description }.not_to raise_error
     end
 
     it "returns nil for the missing fields" do
       expect(subject.language).to be nil
+      expect(subject.description).to eq ["Box 2"]
     end
   end
 end
