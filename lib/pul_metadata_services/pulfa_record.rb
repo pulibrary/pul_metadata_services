@@ -15,18 +15,19 @@ module PulMetadataServices
       {
         title: title,
         language: language,
-        date: display_date,
+        date_created: display_date,
         created: normalized_date,
         extent: extent,
-        description: description,
+        container: container,
         heldBy: location_code,
         creator: collection_creators,
-        publisher: collection_creators
+        publisher: collection_creators,
+        memberOf: collections
       }
     end
 
     def title
-      [ [ breadcrumbs, data.at_xpath('/c/did/unittitle').text ].compact.join(' - ') ]
+      [ [ breadcrumbs, data.at_xpath('/c/did/unittitle').text ].reject(&:empty?).join(' - ') ]
     end
 
     def language
@@ -45,8 +46,8 @@ module PulMetadataServices
       text(data.at_xpath('/c/did/physloc'))
     end
 
-    def description
-      [ [container('box'), container('folder')].compact.join(', ') ]
+    def container
+      [ [container_parent, container_element('box'), container_element('folder')].compact.join(', ') ]
     end
 
     def extent
@@ -59,16 +60,19 @@ module PulMetadataServices
 
     def breadcrumbs
       crumbs = data.xpath('/c/context/breadcrumbs/crumb')
-      crumbs.map(&:text).join(' - ')
+      crumbs.map(&:text).compact.join(' - ')
     end
 
-    def collection_title
-      [ data.at_xpath('/c/context/collectionInfo/unittitle').content ]
+    def collections
+      [{
+        title: data.at_xpath('/c/context/collectionInfo/unittitle').content,
+        identifier: data.at_xpath('/c/context/collectionInfo/unitid').content
+      }]
     end
 
     def collection_creators
       cres = data.xpath('/c/context/collectionInfo/collection-creators/*')
-      cres.map(&:content)
+      cres.map(&:content).map(&:strip)
     end
 
     def collection_date
@@ -89,7 +93,14 @@ module PulMetadataServices
       [ result.text ] if result
     end
 
-    def container(type)
+    def container_parent
+      parent_id = data.at_xpath("/c/did/container/@parent")
+      return unless parent_id
+      parent = data.at_xpath("//c[@id='#{parent_id}']/did/container")
+      "#{parent.attribute('type').value.capitalize} #{parent.content}"
+    end
+
+    def container_element(type)
       val = text(data.at_xpath("/c/did/container[@type='#{type}']"))
       "#{type.capitalize} #{val.first}" if val
     end
