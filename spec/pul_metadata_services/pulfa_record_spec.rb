@@ -18,8 +18,9 @@ describe PulMetadataServices::PulfaRecord do
         created: ['1865-01-01T00:00:00Z/1865-12-31T23:59:59Z'],
         creator: ['Princeton University. Library. Dept. of Rare Books and Special Collections'],
         publisher: ['Princeton University. Library. Dept. of Rare Books and Special Collections'],
-        date: ['circa 1865'],
-        description: ['Box 1, Folder 2'],
+        memberOf: [{title: 'Princeton University Library Records', identifier: 'AC123'}],
+        date_created: ['circa 1865'],
+        container: ['Box 1, Folder 2'],
         extent: ['1 folder'],
         heldBy: ['mudd'],
         language: ['eng']
@@ -42,10 +43,10 @@ describe PulMetadataServices::PulfaRecord do
     end
   end
 
-  describe '#collection_title' do
-    it 'returns the path without the title' do
-      expected = ['Princeton University Library Records']
-      expect(subject.collection_title).to eq expected
+  describe '#collections' do
+    it 'returns the colleciton title and id' do
+      expected = [{title: 'Princeton University Library Records', identifier: 'AC123'}]
+      expect(subject.collections).to eq expected
     end
   end
 
@@ -80,9 +81,9 @@ describe PulMetadataServices::PulfaRecord do
     end
   end
 
-  describe '#description' do
+  describe '#container' do
     it 'returns the box/folder' do
-      expect(subject.description).to eq ['Box 1, Folder 2']
+      expect(subject.container).to eq ['Box 1, Folder 2']
     end
   end
 
@@ -103,12 +104,40 @@ describe PulMetadataServices::PulfaRecord do
 
     it "doesn't fail" do
       expect { subject.language }.not_to raise_error
-      expect { subject.description }.not_to raise_error
+      expect { subject.container }.not_to raise_error
     end
 
     it "returns nil for the missing fields" do
       expect(subject.language).to be nil
-      expect(subject.description).to eq ["Box 2"]
+      expect(subject.container).to eq ["Box 2"]
+    end
+  end
+
+  context "with DSC container approach" do
+    let(:record2_path) { File.join(fixture_path, 'C0967_c0001.xml')}
+    subject {
+      f = File.open(record2_path)
+      su = PulMetadataServices::PulfaRecord.new(f.read)
+      f.close
+      su
+    }
+
+    describe '#attributes' do
+      it 'works' do
+        expected = {
+          title: ['Abdura Makedonias'],
+          creator: ['Lampakēs, Geōrgios, 1854-1914.'],
+          publisher: ['Lampakēs, Geōrgios, 1854-1914.'],
+          created: ['1902-01-01T00:00:00Z/1902-12-31T23:59:59Z'],
+          date_created: ['1902'],
+          memberOf: [{title: 'Byzantine and post-Byzantine Inscriptions Collection', identifier: 'C0967'}],
+          container: ['Box 1, Folder 1'],
+          extent: ['1 folder'],
+          heldBy: ['mss'],
+          language: ['gre']
+        }
+        expect(subject.attributes).to eq expected
+      end
     end
   end
 end
