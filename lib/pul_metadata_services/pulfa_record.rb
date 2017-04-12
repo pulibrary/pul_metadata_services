@@ -27,7 +27,7 @@ module PulMetadataServices
     end
 
     def title
-      [ [ breadcrumbs, data.at_xpath('/c/did/unittitle').text ].reject(&:empty?).join(' - ') ]
+      [ [ breadcrumbs, data.at_xpath('/c/did/unittitle').text ].reject(&:empty?).join(' - ') ].map { |s| s.gsub(/\s+/, ' ') }
     end
 
     def language

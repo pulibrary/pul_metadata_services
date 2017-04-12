@@ -23,7 +23,8 @@
         <pulfa:request type="single">AC123 box 1</pulfa:request>
     </pulfa:context>
     <did>
-        <unittitle>19th Century Catalog and Correspondence, Pre-Vinton, 1811-</unittitle>
+        <unittitle>19th Century Catalog and Correspondence,
+                   Pre-Vinton, 1811-</unittitle>
         <unitdate normal="1865-01-01T00:00:00Z/1865-12-31T23:59:59Z">circa 1865</unitdate>
         <unitdate normal="0001-01-01T00:00:00Z/0001-01-01T00:00:00Z">undated</unitdate>
         <langmaterial>
