@@ -1,9 +1,9 @@
 <c xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:pulfa="http://library.princeton.edu/pulfa" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" level="file" id="C0967_c0001">
     <pulfa:context>
-        <pulfa:uri>http://findingaids.princeton.edu/collections/C0967/c0001</pulfa:uri>
+        <pulfa:uri>https://findingaids.princeton.edu/collections/C0967/c0001</pulfa:uri>
         <pulfa:collectionInfo>
             <pulfa:ARK>http://arks.princeton.edu/ark:/88435/x633f104x</pulfa:ARK>
-            <pulfa:uri>http://findingaids.princeton.edu/collections/C0967</pulfa:uri>
+            <pulfa:uri>https://findingaids.princeton.edu/collections/C0967</pulfa:uri>
             <pulfa:collection-creators>
                 <persname source="viaf" role="col" authfilenumber="http://viaf.org/viaf/62306072">Lampakēs, Geōrgios, 1854-1914.
             </persname>
@@ -37,7 +37,7 @@
         <physdesc>
             <extent type="computed" unit="folders">1 folder</extent>
         </physdesc>
-        <dao xmlns:xlin="http://www.w3.org/1999/xlink" xlin:type="simple" xlin:role="http://www.loc.gov/METS/" xlin:href="http://findingaids.princeton.edu/folders/C0967/c0001.mets"/>
+        <dao xmlns:xlin="http://www.w3.org/1999/xlink" xlin:type="simple" xlin:role="http://www.loc.gov/METS/" xlin:href="https://findingaids.princeton.edu/folders/C0967/c0001.mets"/>
     </did>
     <accessrestrict type="open">
         <p>Collection is open for research use.</p>

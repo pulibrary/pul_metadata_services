@@ -1,12 +1,12 @@
 <c xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:pulfa="http://library.princeton.edu/pulfa" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" level="file" id="AC044_c0003">
     <pulfa:context>
-        <pulfa:uri>http://findingaids.princeton.edu/collections/AC044/c0003</pulfa:uri>
+        <pulfa:uri>https://findingaids.princeton.edu/collections/AC044/c0003</pulfa:uri>
         <pulfa:breadcrumbs>
-            <pulfa:crumb uri="http://findingaids.princeton.edu/collections/AC044/c0001" level="series">Series 1: Committee Administration</pulfa:crumb>
+            <pulfa:crumb uri="https://findingaids.princeton.edu/collections/AC044/c0001" level="series">Series 1: Committee Administration</pulfa:crumb>
         </pulfa:breadcrumbs>
         <pulfa:collectionInfo>
             <pulfa:ARK>http://arks.princeton.edu/ark:/88435/w37636770</pulfa:ARK>
-            <pulfa:uri>http://findingaids.princeton.edu/collections/AC044</pulfa:uri>
+            <pulfa:uri>https://findingaids.princeton.edu/collections/AC044</pulfa:uri>
             <pulfa:collection-creators>
                 <corpname rules="legacy" altrender="Special Committee on the Structure of the University" source="viaf" role="cre" authfilenumber="http://viaf.org/viaf/129460239">Princeton University. Special Committee on the Structure of the University.</corpname>
             </pulfa:collection-creators>
@@ -38,7 +38,7 @@
         </repository>
         <container type="box">1</container>
         <container type="folder">2</container>
-        <dao xmlns:xlin="http://www.w3.org/1999/xlink" xlin:type="simple" xlin:role="http://www.loc.gov/METS/" xlin:href="http://findingaids.princeton.edu/folders/AC044/c0003.mets"/>
+        <dao xmlns:xlin="http://www.w3.org/1999/xlink" xlin:type="simple" xlin:role="http://www.loc.gov/METS/" xlin:href="https://findingaids.princeton.edu/folders/AC044/c0003.mets"/>
         <physdesc>
             <extent type="computed">1 folder</extent>
         </physdesc>
