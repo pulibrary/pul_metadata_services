@@ -20,7 +20,7 @@ module PulMetadataServices
     end
 
     def self.retrieve_from_pulfa(id)
-      conn = Faraday.new(url: 'http://findingaids.princeton.edu/collections/')
+      conn = Faraday.new(url: 'https://findingaids.princeton.edu/collections/')
       response = conn.get("#{id.gsub('_','/')}.xml", scope: "record" )
       response.body
     end
