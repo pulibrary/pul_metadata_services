@@ -34,6 +34,14 @@ describe PulMetadataServices::PulfaRecord do
       expected = ['Series 1: University Librarian Records - Subseries 1A, Frederic Vinton - Correspondence - 19th Century Catalog and Correspondence, Pre-Vinton, 1811-']
       expect(subject.title).to eq expected
     end
+
+    context 'collection record' do
+    let(:record1_path) { File.join(fixture_path, 'C0652.xml')}
+      it 'grabs the unittitle' do
+        expected = ["Emir Rodriguez Monegal Papers"]
+        expect(subject.title).to eq expected
+      end
+    end
   end
 
   describe '#breadcrumbs' do

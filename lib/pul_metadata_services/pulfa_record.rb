@@ -27,7 +27,12 @@ module PulMetadataServices
     end
 
     def title
-      [ [ breadcrumbs, data.at_xpath('/c/did/unittitle').text ].reject(&:empty?).join(' - ') ].map { |s| s.gsub(/\s+/, ' ') }
+      [ [ breadcrumbs, unittitle_element.text ].reject(&:empty?).join(' - ') ].map { |s| s.gsub(/\s+/, ' ') }
+    end
+
+    # look for a component title; if not found look for a collection title
+    def unittitle_element
+      data.at_xpath('/c/did/unittitle') || data.at_xpath('/archdesc/did/unittitle')
     end
 
     def language
