@@ -34,14 +34,6 @@ describe PulMetadataServices::PulfaRecord do
       expected = ['Series 1: University Librarian Records - Subseries 1A, Frederic Vinton - Correspondence - 19th Century Catalog and Correspondence, Pre-Vinton, 1811-']
       expect(subject.title).to eq expected
     end
-
-    context 'collection record' do
-    let(:record1_path) { File.join(fixture_path, 'C0652.xml')}
-      it 'grabs the unittitle' do
-        expected = ["Emir Rodriguez Monegal Papers"]
-        expect(subject.title).to eq expected
-      end
-    end
   end
 
   describe '#breadcrumbs' do
@@ -146,6 +138,23 @@ describe PulMetadataServices::PulfaRecord do
         }
         expect(subject.attributes).to eq expected
       end
+    end
+  end
+
+  context 'collection record' do
+  let(:record1_path) { File.join(fixture_path, 'C0652.xml')}
+
+    it "knows it's a collection" do
+      expect(subject.collection?).to be true
+    end
+
+    it 'grabs the unittitle' do
+      expected = ["Emir Rodriguez Monegal Papers"]
+      expect(subject.title).to eq expected
+    end
+
+    it "doesn't have data about being in a collection since it is a collection" do
+      expect(subject.collections).to eq []
     end
   end
 end
