@@ -1,5 +1,6 @@
 require 'vcr'
 require 'pul_metadata_services'
+require 'pry'
 
 VCR.configure do |c|
   c.ignore_hosts '127.0.0.1', 'localhost'
