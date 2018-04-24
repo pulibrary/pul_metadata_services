@@ -32,7 +32,11 @@ module PulMetadataServices
 
     # look for a component title; if not found look for a collection title
     def unittitle_element
-      data.at_xpath('/c/did/unittitle') || data.at_xpath('/archdesc/did/unittitle')
+      if collection?
+        data.at_xpath('/archdesc/did/unittitle')
+      else
+        data.at_xpath('/c/did/unittitle')
+      end
     end
 
     def language
@@ -69,6 +73,7 @@ module PulMetadataServices
     end
 
     def collections
+      return [] if collection?
       [{
         title: data.at_xpath('/c/context/collectionInfo/unittitle').content,
         identifier: data.at_xpath('/c/context/collectionInfo/unitid').content
@@ -82,6 +87,10 @@ module PulMetadataServices
 
     def collection_date
       # TODO
+    end
+
+    def collection?
+      !data.at_xpath('/archdesc').nil?
     end
 
     private
