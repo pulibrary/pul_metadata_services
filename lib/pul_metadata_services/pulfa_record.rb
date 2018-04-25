@@ -33,7 +33,7 @@ module PulMetadataServices
     # look for a component title; if not found look for a collection title
     def unittitle_element
       if collection?
-        data.at_xpath('/archdesc/did/unittitle')
+        data.at_xpath('/ead/archdesc/did/unittitle')
       else
         data.at_xpath('/c/did/unittitle')
       end
@@ -90,7 +90,7 @@ module PulMetadataServices
     end
 
     def collection?
-      !data.at_xpath('/archdesc').nil?
+      !data.at_xpath('/ead/archdesc').nil?
     end
 
     private
