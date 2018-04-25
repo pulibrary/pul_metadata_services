@@ -36,6 +36,12 @@ describe PulMetadataServices::PulfaRecord do
     end
   end
 
+  describe '#collection?' do
+    it "knows it's not a collection" do
+      expect(subject.collection?).to be false
+    end
+  end
+
   describe '#breadcrumbs' do
     it 'returns the path without the title' do
       expected = 'Series 1: University Librarian Records - Subseries 1A, Frederic Vinton - Correspondence'
