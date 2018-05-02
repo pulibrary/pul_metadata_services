@@ -9,6 +9,10 @@ module PulMetadataServices
       @source
     end
 
+    def full_source
+      @source
+    end
+
     def attributes
       {
         title: title,

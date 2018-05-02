@@ -2,9 +2,10 @@ require 'nokogiri'
 
 module PulMetadataServices
   class PulfaRecord
-
-    def initialize(source)
+    attr_reader :full_source
+    def initialize(source, full_source=nil)
       @source = source
+      @full_source = full_source
     end
 
     def source
