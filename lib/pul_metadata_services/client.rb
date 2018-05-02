@@ -8,7 +8,8 @@ module PulMetadataServices
         record = PulMetadataServices::BibRecord.new(src)
       else
         src = retrieve_from_pulfa(id)
-        record = PulMetadataServices::PulfaRecord.new(src)
+        full_src = full_source_from_pulfa(id)
+        record = PulMetadataServices::PulfaRecord.new(src, full_src)
       end
       record
     end
@@ -22,6 +23,12 @@ module PulMetadataServices
     def self.retrieve_from_pulfa(id)
       conn = Faraday.new(url: 'https://findingaids.princeton.edu/collections/')
       response = conn.get("#{id.gsub('_','/')}.xml", scope: "record" )
+      response.body.force_encoding("UTF-8")
+    end
+
+    def self.full_source_from_pulfa(id)
+      conn = Faraday.new(url: 'https://findingaids.princeton.edu/collections/')
+      response = conn.get("#{id.gsub('_','/')}.xml")
       response.body.force_encoding("UTF-8")
     end
 
