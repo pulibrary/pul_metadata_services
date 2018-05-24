@@ -33,27 +33,23 @@ module PulMetadataServices
 
     # look for a component title; if not found look for a collection title
     def unittitle_element
-      if collection?
-        data.at_xpath('/archdesc/did/unittitle')
-      else
-        data.at_xpath('/c/did/unittitle')
-      end
+      data.at_xpath("#{data_root}/did/unittitle")
     end
 
     def language
-      text(data.at_xpath('/c/did/langmaterial/language/@langcode'))
+      text(data.at_xpath("#{data_root}/did/langmaterial/language/@langcode"))
     end
 
     def normalized_date
-      text(data.at_xpath('/c/did/unitdate/@normal'))
+      text(data.at_xpath("#{data_root}/did/unitdate/@normal"))
     end
 
     def display_date
-      text(data.at_xpath('/c/did/unitdate'))
+      text(data.at_xpath("#{data_root}/did/unitdate"))
     end
 
     def location_code
-      text(data.at_xpath('/c/did/physloc'))
+      text(data.at_xpath("#{data_root}/did/physloc"))
     end
 
     def container
@@ -61,7 +57,7 @@ module PulMetadataServices
     end
 
     def extent
-      text(data.at_xpath('/c/did/physdesc/extent'))
+      text(data.at_xpath("#{data_root}/did/physdesc/extent"))
     end
 
     def component_creators
@@ -69,20 +65,20 @@ module PulMetadataServices
     end
 
     def breadcrumbs
-      crumbs = data.xpath('/c/context/breadcrumbs/crumb')
+      crumbs = data.xpath("#{data_root}/context/breadcrumbs/crumb")
       crumbs.map(&:text).compact.join(' - ')
     end
 
     def collections
       return [] if collection?
       [{
-        title: data.at_xpath('/c/context/collectionInfo/unittitle').content,
-        identifier: data.at_xpath('/c/context/collectionInfo/unitid').content
+        title: data.at_xpath("#{data_root}/context/collectionInfo/unittitle").content,
+        identifier: data.at_xpath("#{data_root}/context/collectionInfo/unitid").content
       }]
     end
 
     def collection_creators
-      cres = data.xpath('/c/context/collectionInfo/collection-creators/*')
+      cres = data.xpath("#{data_root}/context/collectionInfo/collection-creators/*")
       cres.map(&:content).map(&:strip)
     end
 
@@ -95,6 +91,10 @@ module PulMetadataServices
     end
 
     private
+
+    def data_root
+      collection? ? '/archdesc' : '/c'
+    end
 
     def data
       @data ||= reader.remove_namespaces!
