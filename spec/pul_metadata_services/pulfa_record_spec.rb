@@ -96,11 +96,7 @@ describe PulMetadataServices::PulfaRecord do
         expected = {
           title: ['Emir Rodriguez Monegal Papers'],
           created: ['1941-01-01T00:00:00Z/1985-12-31T23:59:59Z'],
-          creator: [], # todo: don't include
-          publisher: [], # todo: don't include
-          memberOf: [], # todo: don't include
           date_created: ['1941-1985'],
-          container: [''], # todo: don't include
           extent: ['11 linear feet'],
           heldBy: ['mss'],
           language: ['spa']

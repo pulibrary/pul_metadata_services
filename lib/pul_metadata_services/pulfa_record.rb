@@ -135,6 +135,17 @@ module PulMetadataServices
       end
 
       class CollectionAttributes < Attributes
+        def attributes
+          {
+            title: title,
+            language: language,
+            date_created: display_date,
+            created: normalized_date,
+            extent: extent,
+            heldBy: location_code,
+          }
+        end
+
         def data_root
            '/archdesc'
         end
