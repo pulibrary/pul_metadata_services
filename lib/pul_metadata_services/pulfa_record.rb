@@ -27,6 +27,12 @@ module PulMetadataServices
       }
     end
 
+    def collection?
+      !data.at_xpath('/archdesc').nil?
+    end
+
+    private
+
     def title
       [ [ breadcrumbs, unittitle_element.text ].reject(&:empty?).join(' - ') ].map { |s| s.gsub(/\s+/, ' ') }
     end
@@ -85,12 +91,6 @@ module PulMetadataServices
     def collection_date
       # TODO
     end
-
-    def collection?
-      !data.at_xpath('/archdesc').nil?
-    end
-
-    private
 
     def data_root
       collection? ? '/archdesc' : '/c'
